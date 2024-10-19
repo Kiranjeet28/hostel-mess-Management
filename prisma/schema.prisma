@@ -1,0 +1,54 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model MessBill {
+  Id String @id @default(auto()) @map("_id") @db.ObjectId
+  Rs Int // Use Float or Decimal for monetary values
+}
+
+model Messperstd {
+  Id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  january   Boolean @default(false) // January boolean value
+  february  Boolean @default(false) // February boolean value
+  march     Boolean @default(false) // March boolean value
+  april     Boolean @default(false) // April boolean value
+  may       Boolean @default(false) // May boolean value
+  june      Boolean @default(false) // June boolean value
+  july      Boolean @default(false) // July boolean value
+  august    Boolean @default(false) // August boolean value
+  september Boolean @default(false) // September boolean value
+  october   Boolean @default(false) // October boolean value
+  november  Boolean @default(false) // November boolean value
+  december  Boolean @default(false) // December boolean value
+}
+
+model Warden {
+  Id       String @id @default(auto()) @map("_id") @db.ObjectId
+  Email    String @unique // Unique email for each Warden
+  Password String // Password for Warden
+}
+
+model Student {
+  Id               String @id @default(auto()) @map("_id") @db.ObjectId
+  Name             String // Student's name
+  RollNumber       Int    @unique // Unique roll number for each Student
+  Branch           String // Branch of study
+  Year             Int // Year of study
+  Email            String @unique // Unique email for each Student
+  Password         String // Password for Student
+  WAContact        String // Phone number of Student
+  ParentsContact   Int // Phone number of Parent
+  Address          String // Address of Student
+  City             String // City of Student
+  Father           String // Father's name
+  Mother           String // Mother's name
+  EmergencyContact String // Emergency contact number
+  LocalName        String // Local contact name
+  LocalContact     Int // Local contact number
+}
