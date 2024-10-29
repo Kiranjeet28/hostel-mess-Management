@@ -33,23 +33,7 @@ export default async function createUserIfNot({
                 EmergencyContact: "not given",
                 LocalName: "not given",
                 LocalContact: 0, // Placeholder value; replace with actual logic if necessary
-                Messperstd: {
-                    create: {
-                        Year: currentYear, // Set the Messperstd Year to the current year
-                        january: false,
-                        february: false,
-                        march: false,
-                        april: false,
-                        may: false,
-                        june: false,
-                        july: false,
-                        august: false,
-                        september: false,
-                        october: false,
-                        november: false,
-                        december: false,
-                    },
-                },
+                
             },
         });
 

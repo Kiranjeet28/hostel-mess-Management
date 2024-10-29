@@ -38,7 +38,7 @@ export default async function updateStudent({
     if (!session || !session.user?.email) {
         throw new Error("User not authenticated");
     }
-
+    const currentYear = new Date().getFullYear();
     try {
         // Update student details
         const updatedStudent = await db.student.update({
@@ -57,7 +57,23 @@ export default async function updateStudent({
                 EmergencyContact,
                 LocalName,
                 LocalContact,
-                // Add additional fields if required
+                Messperstd: {
+                    create: {
+                        Year: currentYear, // Set the Messperstd Year to the current year
+                        january: false,
+                        february: false,
+                        march: false,
+                        april: false,
+                        may: false,
+                        june: false,
+                        july: false,
+                        august: false,
+                        september: false,
+                        october: false,
+                        november: false,
+                        december: false,
+                    },
+                },
             },
         });
 
