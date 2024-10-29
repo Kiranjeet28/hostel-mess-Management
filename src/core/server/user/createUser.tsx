@@ -19,8 +19,8 @@ export default async function createUserIfNot({
         // Create the student with the required placeholder values
         const user = await db.student.create({
             data: {
-                Name: Name,
-                Email: Email,
+                Name,
+                Email,
                 Image: Image || "",
                 RollNumber: 1, // Placeholder value; replace with actual logic if necessary
                 Branch: "not given",
@@ -56,7 +56,7 @@ export default async function createUserIfNot({
 
         return user;
     } catch (error) {
-        console.log(error);
+        console.error("Error creating user:", error);
         return null;
     }
 }
