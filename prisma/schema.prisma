@@ -12,8 +12,15 @@ model MessBill {
   Rs Int // Use Float or Decimal for monetary values
 }
 
+enum Role {
+  Student
+  Warden
+}
+
 model Messperstd {
   Id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  Student   Student @relation(fields: [Id], references: [Id], onDelete: Cascade)
+  Year      Int     @unique
   january   Boolean @default(false) // January boolean value
   february  Boolean @default(false) // February boolean value
   march     Boolean @default(false) // March boolean value
@@ -28,20 +35,15 @@ model Messperstd {
   december  Boolean @default(false) // December boolean value
 }
 
-model Warden {
-  Id       String @id @default(auto()) @map("_id") @db.ObjectId
-  Email    String @unique // Unique email for each Warden
-  Password String // Password for Warden
-}
-
 model Student {
-  Id               String @id @default(auto()) @map("_id") @db.ObjectId
+  Id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  role             Role         @default(Student)
   Name             String // Student's name
-  RollNumber       Int    @unique // Unique roll number for each Student
+  RollNumber       Int          @unique // Unique roll number for each Student
   Branch           String // Branch of study
   Year             Int // Year of study
-  Email            String @unique // Unique email for each Student
-  Password         String // Password for Student
+  Email            String       @unique
+  Image            String?
   WAContact        String // Phone number of Student
   ParentsContact   Int // Phone number of Parent
   Address          String // Address of Student
@@ -51,4 +53,5 @@ model Student {
   EmergencyContact String // Emergency contact number
   LocalName        String // Local contact name
   LocalContact     Int // Local contact number
+  Messperstd       Messperstd[]
 }
