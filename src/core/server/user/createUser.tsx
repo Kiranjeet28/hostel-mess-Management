@@ -21,7 +21,7 @@ export default async function createUserIfNot({
             data: {
                 Name,
                 Email,
-                Image: Image || "",
+                Image,
                 RollNumber: 1, // Placeholder value; replace with actual logic if necessary
                 Branch: "not given",
                 Year: currentYear, // Set to a specific year or derive from context
