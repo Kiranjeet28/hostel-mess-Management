@@ -19,8 +19,9 @@ export default async function createUserIfNot({
         // Create the student with the required placeholder values
         const user = await db.student.create({
             data: {
-                Name,
-                Email,
+                Name: Name,
+                Email: Email,
+                Image : Image,
                 RollNumber: 1, // Placeholder value; replace with actual logic if necessary
                 Branch: "not given",
                 Year: currentYear, // Set to a specific year or derive from context
@@ -33,13 +34,29 @@ export default async function createUserIfNot({
                 EmergencyContact: "not given",
                 LocalName: "not given",
                 LocalContact: 0, // Placeholder value; replace with actual logic if necessary
-                
+                Messperstd: {
+                    create: {
+                        Year: currentYear, // Set the Messperstd Year to the current year
+                        january: false,
+                        february: false,
+                        march: false,
+                        april: false,
+                        may: false,
+                        june: false,
+                        july: false,
+                        august: false,
+                        september: false,
+                        october: false,
+                        november: false,
+                        december: false,
+                    },
+                },
             },
         });
 
         return user;
     } catch (error) {
-        console.error("Error creating user:", error);
+        console.log(error);
         return null;
     }
 }
