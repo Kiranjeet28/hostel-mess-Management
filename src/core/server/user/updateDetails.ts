@@ -2,7 +2,6 @@ import { db } from "@/core/prismaClient";
 import { getSession } from "next-auth/react";
 
 export default async function updateStudent({
-    Name,
     RollNumber,
     Branch,
     Year,
@@ -12,24 +11,24 @@ export default async function updateStudent({
     City,
     Father,
     Mother,
+    Email,
     EmergencyContact,
     LocalName,
     LocalContact,
 }: {
-    Name: string,
-    RollNumber: number,
-    Branch: string,
-    Year: number, // Assuming Year is an integer
-    Email: string,
-    WAContact: string,
-    ParentsContact: number,
-    Address: string,
-    City: string,
-    Father: string,
-    Mother: string,
-    EmergencyContact: string,
-    LocalName: string,
-    LocalContact: number,
+    RollNumber: number;
+    Branch: string;
+    Year: number; // Assuming Year is an integer
+    Email: string;
+    WAContact: string; // Changed to string
+    ParentsContact: number;
+    Address: string;
+    City: string;
+    Father: string;
+    Mother: string;
+    EmergencyContact: string;
+    LocalName: string;
+    LocalContact: number;
 }) {
     // Get the session
     const session = await getSession();
@@ -42,9 +41,8 @@ export default async function updateStudent({
     try {
         // Update student details
         const updatedStudent = await db.student.update({
-            where: { Email: session.user.email },
+            where: { Email: session.user.email }, // Assuming you're updating by email
             data: {
-                Name,
                 RollNumber,
                 Branch,
                 Year,
