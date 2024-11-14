@@ -53,14 +53,8 @@ const authOptions: NextAuthOptions = {
             if (trigger === "signIn") {
                 const userInfo = await getUserInfo({ Email: token.email! });
                 if (userInfo) {
-                    token.sub = userInfo.Id;
+                    token.sub = userInfo.id;
                     token.role = userInfo.role;
-                }
-            } else if (trigger === "update") {
-                const updatedUserInfo = await getUserInfo({ Email: token.email! });
-                if (updatedUserInfo) {
-                    token.sub = updatedUserInfo.Id;
-                    token.role = updatedUserInfo.role;
                 }
             }
             return token;
@@ -78,6 +72,7 @@ const authOptions: NextAuthOptions = {
             return false;
         },
     },
+
     session: {
         strategy: "jwt",
         maxAge: 60 * 60 * 24 * 7,

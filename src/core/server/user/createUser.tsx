@@ -1,5 +1,5 @@
 import { db } from "@/core/prismaClient";
-
+import { $Enums } from "@prisma/client";
 export default async function createUserIfNot({
     Email,
     Name,
@@ -10,33 +10,26 @@ export default async function createUserIfNot({
     Image?: string | null;
 }) {
     try {
-        const dbuser = await db.student.findUnique({ where: { Email } });
-        if (dbuser) return dbuser;
+        // Check if the user already exists
+        const dbUser = await db.student.findUnique({ where: { Email } });
+        if (dbUser) return dbUser;
 
         // Get the current year
         const currentYear = new Date().getFullYear();
 
-        // Create the student with the required placeholder values
+      
+
+        // Create the new student with default values for missing fields
         const user = await db.student.create({
             data: {
-                Name: Name,
-                Email: Email,
-                Image : Image,
-                RollNumber: 1, // Placeholder value; replace with actual logic if necessary
-                Branch: "not given",
-                Year: currentYear, // Set to a specific year or derive from context
-                WAContact: "not given",
-                ParentsContact: 33, // Placeholder value; replace with actual logic if necessary
-                Address: "not given",
-                City: "not given",
-                Father: "not given",
-                Mother: "not given",
-                EmergencyContact: "not given",
-                LocalName: "not given",
-                LocalContact: 0, // Placeholder value; replace with actual logic if necessary
+                Name,
+                Email,
+                Image,
+                role: $Enums.Role.USER,
+                
                 Messperstd: {
                     create: {
-                        Year: currentYear, // Set the Messperstd Year to the current year
+                        Year: currentYear,
                         january: false,
                         february: false,
                         march: false,
@@ -55,8 +48,12 @@ export default async function createUserIfNot({
         });
 
         return user;
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        if (error.code === 'P2002') {
+            console.error("Unique constraint violation on a field:", error.meta?.target);
+        } else {
+            console.error("An unexpected error occurred:", error);
+        }
         return null;
     }
 }

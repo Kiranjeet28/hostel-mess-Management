@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-          className="bg-[#015091] text-white py-6 font-sans"
+      className="bg-main text-white py-6 font-sans"
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex space-x-4">
             <motion.a
-                          href="https://www.linkedin.com/in/kiranjeet-kour-3823ba268"
+              href="https://www.linkedin.com/in/kiranjeet-kour-3823ba268"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2 }}
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               <FaLinkedin size={24} />
             </motion.a>
             <motion.a
-                          href="https://github.com/kiranjeet28"
+              href="https://github.com/kiranjeet28"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2 }}
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
               <FaGithub size={24} />
             </motion.a>
             <motion.a
-                          href="https://kiranjeet28.github.io/Portfolio/"
+              href="https://kiranjeet28.github.io/Portfolio/"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
             >

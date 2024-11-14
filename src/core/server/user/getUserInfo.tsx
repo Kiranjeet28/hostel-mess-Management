@@ -4,7 +4,7 @@ export default async function getUserInfo({ Email }: { Email: string }) {
     try {
         const info = await db.student.findUnique({
             where: { Email },
-            select: { role: true, Id: true },
+            select: { role : true, id: true },
         });
         return info;
     } catch (err) {

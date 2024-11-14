@@ -1,57 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model MessBill {
-  Id String @id @default(auto()) @map("_id") @db.ObjectId
-  Rs Int // Use Float or Decimal for monetary values
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  Payment Int
 }
-
-enum Role {
-  Student
-  Warden
+model Review {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  Email        String  @unique
+  Name         String
+  Profession   String
+  Rating       Int
+  Review       String
+  Picture      String?
+  Order        Int?
+  createdAt    DateTime @default(now())
 }
 
 model Messperstd {
-  Id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  Student   Student @relation(fields: [Id], references: [Id], onDelete: Cascade)
-  Year      Int     @unique
-  january   Boolean @default(false) // January boolean value
-  february  Boolean @default(false) // February boolean value
-  march     Boolean @default(false) // March boolean value
-  april     Boolean @default(false) // April boolean value
-  may       Boolean @default(false) // May boolean value
-  june      Boolean @default(false) // June boolean value
-  july      Boolean @default(false) // July boolean value
-  august    Boolean @default(false) // August boolean value
-  september Boolean @default(false) // September boolean value
-  october   Boolean @default(false) // October boolean value
-  november  Boolean @default(false) // November boolean value
-  december  Boolean @default(false) // December boolean value
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  Year         Int
+  april        Boolean
+  august       Boolean
+  december     Boolean
+  february     Boolean
+  january      Boolean
+  july         Boolean
+  june         Boolean
+  march        Boolean
+  may          Boolean
+  november     Boolean
+  october      Boolean
+  september    Boolean
+  Student      Student @relation(fields: [studentEmail], references: [Email])
+  studentEmail String 
+
+  
 }
 
 model Student {
-  Id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  role             Role         @default(Student)
-  Name             String // Student's name
-  RollNumber       Int          @unique // Unique roll number for each Student
-  Branch           String // Branch of study
-  Year             Int // Year of study
-  Email            String       @unique
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  Address          String?
+  Branch           String?
+  City             String?
+  Email            String  @unique
+  EmergencyContact String?
+  Father           String?
   Image            String?
-  WAContact        String // Phone number of Student
-  ParentsContact   Int // Phone number of Parent
-  Address          String // Address of Student
-  City             String // City of Student
-  Father           String // Father's name
-  Mother           String // Mother's name
-  EmergencyContact String // Emergency contact number
-  LocalName        String // Local contact name
-  LocalContact     Int // Local contact number
+  LocalContact     Int?
+  LocalName        String?
+  Mother           String?
+  Name             String
+  ParentsContact   Int?
+  RollNumber       Int?  @unique
+  WAContact        String?
+  Year             Int?
+  role    Role     @default(USER)
   Messperstd       Messperstd[]
+}
+enum Role {
+  USER
+  ADMIN
 }
